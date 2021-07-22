@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 
+const PORT = process.env.PORT || 5000;
 const app: Application = express();
 
 app.use(express.json());
@@ -11,8 +12,8 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
 );
 
 try {
-  app.listen(process.env.PORT, (): void => {
-    console.log(`Connected successfully on port ${process.env.PORT} ⚡`);
+  app.listen(PORT, (): void => {
+    console.log(`Connected successfully on port ${PORT} ⚡`);
   });
 } catch (error) {
   console.error(`Error occured: ${error.message}`);
