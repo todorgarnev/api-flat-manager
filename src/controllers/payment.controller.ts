@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
-import * as PaymentService from "../services/payment.service";
+import IPayment from "../interfaces/payment.interface";
 import { validatePayment } from "../utils/validation.util";
+import * as PaymentService from "../services/payment.service";
 
-// const getAll = async (req: Request, res: Response) => {
-//   try {
-//     const users: IUser[] = await UserService.getAll();
-//     return res.status(200).json({ usersList: users });
-//   } catch (error) {
-//     return res.status(404).json(error.message);
-//   }
-// };
+const getAll = async (req: Request, res: Response) => {
+  try {
+    const payments: IPayment[] = await PaymentService.getAll();
+    return res.status(200).json(payments);
+  } catch (error) {
+    return res.status(404).json(error.message);
+  }
+};
 
 const add = async (req: Request, res: Response) => {
   try {
@@ -27,6 +28,6 @@ const add = async (req: Request, res: Response) => {
 };
 
 export {
-  // getAll,
+  getAll,
   add,
 };

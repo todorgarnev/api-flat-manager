@@ -4,7 +4,7 @@ import * as PaymentController from "../controllers/payment.controller";
 
 const router: Router = express.Router();
 
-// router.get('/', auth, PaymentController.getAll);
+router.get('/', auth, PaymentController.getAll);
 router.post('/add', auth, PaymentController.add);
 
 export default router;

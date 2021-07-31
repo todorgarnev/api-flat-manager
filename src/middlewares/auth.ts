@@ -19,7 +19,11 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
         //   next();
         // }
       }
+
+      throw new Error("No token");
     }
+
+    throw new Error("No authentication header");
   } catch (error) {
     res.status(401).json(error.message);
   }
