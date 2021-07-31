@@ -1,5 +1,6 @@
 import IRegisterInput from "../interfaces/register.interface";
 import { regEx } from "../constants/input-constants";
+import ILoginInput from "../interfaces/login.interface";
 
 const validateRegisterInput = (registerInput: IRegisterInput) => {
   let errors: IRegisterInput = {};
@@ -46,21 +47,36 @@ const validateRegisterInput = (registerInput: IRegisterInput) => {
   };
 };
 
-// module.exports.validateLoginInput = (username, password) => {
-//   const errors = {};
+const validateLoginInput = (loginInput: ILoginInput) => {
+  let errors: ILoginInput = {};
 
-//   if (username.trim() === "") {
-//     errors.username = "Username must not be empty";
-//   }
+  if (!loginInput) {
+    return {
+      errors: {
+        username: "Username must not be empty",
+        password: "Password must not be empty",
+      },
+      valid: false
+    };
+  }
 
-//   if (password.trim() === "") {
-//     errors.password = "Password must not be empty";
-//   }
+  if (!loginInput.username || (loginInput.username && loginInput.username.trim() === "")) {
+    errors = { username: "Username must not be empty" };
+  }
 
-//   return {
-//     errors,
-//     valid: Object.keys(errors).length < 1
-//   };
-// };
 
-export { validateRegisterInput };
+  if (!loginInput.password || loginInput.password === "") {
+    errors = { ...errors, password: "Password must not be empty" };
+  }
+
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1
+  };
+}
+
+
+export {
+  validateRegisterInput,
+  validateLoginInput
+};
