@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response, Router } from "e
 import config from "./config/default";
 import connect from "./src/db/connect";
 import userRoutes from "./src/routes/user.routes";
+import paymentRoutes from "./src/routes/payment.routes";
 
 const port: number = config.PORT;
 const host: string = config.HOST;
@@ -25,6 +26,7 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/payments", paymentRoutes);
 
 try {
   app.listen(port, host, (): void => {

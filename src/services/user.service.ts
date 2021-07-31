@@ -54,7 +54,7 @@ const login = async (loginData: ILoginInput) => {
       const passwordMath: boolean = await bcrypt.compare(password, foundUser.password);
 
       if (!passwordMath) {
-        throw new Error("Wrong credentials");
+        throw new Error("Wrong password");
       }
     }
 

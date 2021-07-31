@@ -1,6 +1,8 @@
 import IRegisterInput from "../interfaces/register.interface";
 import { regEx } from "../constants/input-constants";
 import ILoginInput from "../interfaces/login.interface";
+import IPayment from "../interfaces/payment.interface";
+import IPaymentError from "../interfaces/payment-error.interface";
 
 const validateRegisterInput = (registerInput: IRegisterInput) => {
   let errors: IRegisterInput = {};
@@ -75,8 +77,37 @@ const validateLoginInput = (loginInput: ILoginInput) => {
   };
 }
 
+const validatePayment = (payment: IPayment) => {
+  let errors: IPaymentError = {};
+
+  if (!payment) {
+    return {
+      errors: {
+        month: "Month must not be empty",
+        year: "Year must not be empty",
+      },
+      valid: false
+    };
+  }
+
+  if (!payment.month || (payment.month && (payment.month < 0 || payment.month > 12))) {
+    errors = { month: "Invalid month value" };
+  }
+
+
+  if (!payment.year) {
+    errors = { ...errors, year: "Invalid year value" };
+  }
+
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1
+  };
+}
+
 
 export {
   validateRegisterInput,
-  validateLoginInput
+  validateLoginInput,
+  validatePayment
 };
