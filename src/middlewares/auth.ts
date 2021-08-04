@@ -11,7 +11,7 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
 
       if (token) {
         const decodedToken: string | JwtPayload = jwt.verify(token, config.SECRET_KEY);
-        next();
+        return next();
 
         // if (req.body.userId && req.body.userId !== userId) {
         //   throw 'Invalid user ID';
@@ -20,12 +20,18 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
         // }
       }
 
-      throw new Error("No token");
+      throw {
+        name: "JsonWebTokenError",
+        message: "no token"
+      };
     }
 
-    throw new Error("No authentication header");
+    throw {
+      name: "JsonWebTokenError",
+      message: "no auth header"
+    };
   } catch (error) {
-    res.status(401).json(error.message);
+    res.status(401).json(error);
   }
 
 };
